@@ -1,37 +1,29 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component title="Example component" active :todos="todos" :meta="meta"></example-component>
+  <q-page class="row justify-evenly">
+    <div v-if="!posts" style="width: 100%">
+      <template v-for="skeleton in skeletons" :key="skeleton">
+        <q-separator v-if="skeleton > 1" class="q-mt-xs q-mb-sm" />
+        <home-post-skeleton></home-post-skeleton>
+      </template>
+    </div>
+    <div v-else-if="!posts.length" class="row items-center" style="height: 100vh">
+      <p class="text-body1 text-dark">Nenhum resultado encontrado!</p>
+    </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from '../components/ExampleComponent.vue';
-import { ref } from 'vue';
-
-const todos = ref<Todo[]>([
-  {
-    id: 1,
-    content: 'ct1'
-  },
-  {
-    id: 2,
-    content: 'ct2'
-  },
-  {
-    id: 3,
-    content: 'ct3'
-  },
-  {
-    id: 4,
-    content: 'ct4'
-  },
-  {
-    id: 5,
-    content: 'ct5'
-  }
-]);
-const meta = ref<Meta>({
-  totalCount: 1200
+import { ref, reactive, onMounted } from 'vue';
+import HomePost from 'src/components/HomePost.vue';
+import HomePostSkeleton from '../components/HomePostSkeleton.vue';
+const skeletons = reactive([1, 2, 3]);
+const posts = ref<[] | null>(null);
+onMounted(async () => {
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      posts.value = [];
+      resolve(true);
+    }, 200);
+  });
 });
 </script>
