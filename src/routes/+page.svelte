@@ -1,2 +1,11 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+	import Card from '$lib/components/BaseCard.svelte';
+</script>
+
+<div class="container mx-auto p-4 grid gap-4 min-h-screen bg-neutral">
+	<Card id={1} />
+	<Card id={2} />
+	<Card id={3} />
+	<Card id={4} />
+	<Card id={5} />
+</div>
